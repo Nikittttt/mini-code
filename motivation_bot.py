@@ -174,8 +174,8 @@ motivation = all_motivations.split('\n\n')
 for i in motivation:
     motivations_list.append(i.split('\n'))
 
-API_TOKEN = "557867522:AAE3LLXHwefw4hJu8UUbaH0BLqqaKfRBGWE"
-PROXY_URL = 'http://51.158.106.54:8811'
+API_TOKEN = API_TOKEN
+PROXY_URL = 'http://...:...'
 logging.basicConfig(level=logging.INFO)
 loop = asyncio.get_event_loop()
 bot = Bot(token=API_TOKEN, loop=loop, proxy=PROXY_URL)
