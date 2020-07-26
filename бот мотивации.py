@@ -7,6 +7,7 @@ from aiogram import Bot
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils.executor import start_polling
 
+# цитаты и автор(необходимо заменить например на pandas)
 all_motivations = """Все люди чудесны, пока не докажут мне обратное
 Ирина Астахова
 
@@ -169,11 +170,14 @@ Foxy Jazz
 
 Ссы, но делай.
 Misteri0"""
+
+# запись в список(тоже нужно изменить)
 motivations_list = []
 motivation = all_motivations.split('\n\n')
 for i in motivation:
     motivations_list.append(i.split('\n'))
 
+# настройка бота и прокси
 API_TOKEN = API_TOKEN
 PROXY_URL = 'http://...:...'
 logging.basicConfig(level=logging.INFO)
@@ -186,6 +190,7 @@ async def fetch(url, proxy=None, proxy_auth=None):
         async with session.get(url, proxy=proxy, proxy_auth=proxy_auth) as response:
             return await response.text()
 
+# стартовое приветствие и клавиатура для работы
 @dp.message_handler(commands=['start'])
 async def crutch(message):
 
@@ -195,7 +200,7 @@ async def crutch(message):
 
     await bot.send_message(message.chat.id, text="Хочешь получить дивиз на день? Нажми на эту волшебную кнопку)", reply_markup=keyboard)
 
-
+# сама отправка цитаты, следует чуть чуть подправить
 @dp.message_handler()
 async def foundation(message):
     if message.text == 'Рандомная цитатка':
@@ -208,5 +213,6 @@ async def foundation(message):
                                text=f"{quote[0]}\n\nКак говорил(а) {quote[1]}",
                                reply_markup=keyboard)
 
+# TODO добавить отправку раз в час
 if __name__ == '__main__':
     start_polling(dp, loop=loop, skip_updates=True)
