@@ -1,8 +1,10 @@
 import random
 from time import time
 
+# список времени для дальнейшей статистики
 list_time = []
 
+# класс который и создаёт список, непредвзято выбирает число и сообщает больше или меньше
 class randNum:
     def __init__(self):
         self.len_list = 2**25
@@ -19,7 +21,8 @@ class randNum:
         elif num == self.rand_num:
             return "="
 
-for _ in range(10**3):
+# сам бинарный поиск с записью времени и выводом сколько времени работал
+for i in range(1, 10**3):
     start = time()
     rand_num = randNum()
     all_list = rand_num.rand_list
@@ -36,11 +39,15 @@ for _ in range(10**3):
         elif answer == "<":
             all_list = all_list[:ind:]
             ind = (len(all_list)-1)//2
-            ser_ind -=ind
+            ser_ind -= ind
         this_num = all_list[ind]
         answer = rand_num.num_sel(this_num)
         count_itr += 1
-    print(f"Я угадал, это было число под индексом {ser_ind}, я угадал это за {count_itr} попыток и за {time()-start} секунд\n\n")
-    list_time.append(time()-start)
+    end = time()
+    print(f"{i}. Я угадал, это было число под индексом {ser_ind}, я угадал это за {count_itr} попыток и за {end-start:.5f} секунд\n\n")
+    list_time.append(end-start)
 
-print(f"Среднее време выполнения: {sum(list_time)/len(list_time)} секунд")
+print(f"Среднее време выполнения: {sum(list_time)/len(list_time):.5f} секунд.\n"
+      f"Максимально време выполнения: {max(list_time):.5f} секунд.\n"
+      f"Минимальное време выполнения: {min(list_time):.5f} секунд.\n"
+      f"Проведено {len(list_time)} опытов за {sum(list_time):.5f} секунд.")
